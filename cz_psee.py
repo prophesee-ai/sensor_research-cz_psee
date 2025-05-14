@@ -3,6 +3,7 @@ import re
 from typing import Any, Dict, List
 
 from commitizen import defaults, git, config
+from commitizen.cz.conventional_commits import ConventionalCommitsCz
 from commitizen.cz.base import BaseCommitizen
 from commitizen.cz.utils import multiple_line_breaker, required_validator
 from commitizen.cz.exceptions import CzException
@@ -29,7 +30,7 @@ def parse_subject(text):
 class PSEECz(BaseCommitizen):
     bump_pattern = r"^(BREAKING CHANGE|feat|fix|hotfix)"
     bump_map = {"BREAKING CHANGE": "MAJOR", "feat": "MINOR", "fix": "PATCH", "hotfix": "PATCH"}
-    commit_parser = defaults.commit_parser
+    commit_parser = ConventionalCommitsCz.commit_parser
     changelog_pattern = r"^(feat|BREAKING CHANGE|fix|hotfix|refactor|build)"
     re_change_type_emoji = "|".join(["test","feat","fix","docs","style","refactor","perf","ci","build","chore","BREAKING CHANGE","hotfix"])
     regex_scope = "[^()\r\n]*"
